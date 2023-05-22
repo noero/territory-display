@@ -98,3 +98,9 @@ Sur la page d'un territoire, le proclamateur peut :
 - changer le fond de carte (openstreetmap, satellite ou here)
 - voir les personnes à ne pas visiter
 - télécharger le PDF du territoire (à venir)
+
+# Troubleshooting
+
+## Droits d'accès
+
+Les dossiers doivent avoir un droit d'accès 755 et les fichiers de 604
