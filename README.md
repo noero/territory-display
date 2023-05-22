@@ -39,7 +39,7 @@ Pour utiliser ce site web, copier l'ensemble des fichiers de ce répertoire et l
 
 ### Création des territoires
 
-Il existe trois type de territoires disponibles : 
+Il existe trois types de territoires disponibles : 
 * les territoires normaux (dans le fichier Territoires.kml)
 * les territoires de commerces (dans le fichiers Commerces.kml)
 * les territoires de campagnes d'invitation (dans le fichiers Campagnes.kml)
