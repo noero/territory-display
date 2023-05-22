@@ -1,0 +1,54 @@
+body, html, .container-fluid {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+select {
+    z-index: 1;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    padding: 5px;
+    background: white;
+}
+
+.tooltiptext {
+  visibility: hidden;
+  width: 70px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 60%;
+  left: 50%;
+  margin-left: 35px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+#copyLink:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}

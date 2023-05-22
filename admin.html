@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8"/>
+    <title>Territoires Strasbourg Eckbolsheim - Mode Administrateur</title>
+    <link rel="icon" type="image/x-icon" href="./img/osm.png">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no,width=device-width"/>
+    <link href="./css/maplibre-gl.css" rel="stylesheet"/>
+    <link href="./vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link href="./css/admin.css" rel="stylesheet"/>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark px-2">
+      <div class="container-fluid">
+          <a class="navbar-brand">Territoires - Admin</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Exporter
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" onclick="pdf(0)" href="javascript:void(0);">Tous en PDF</a></li>
+                    </ul>
+                  </li>
+          
+              </ul>
+              <div class="d-sm-flex">
+                  <input class="form-control" type="text" placeholder="Territoire n°..." aria-label="Search" id="search-field" aria-describedby="button-search">
+                  <button class="btn btn-outline-success" type="button" id="button-search">Chercher</button>
+              </div>
+          </div>
+      </div>
+  </nav>
+  
+  <div class="container-fluid">
+      <div id="map">
+          <label for="kind"></label>
+          <select id="kind" class="form-select-lg">
+              <option value="particuliers" selected>Particuliers</option>
+              <option value="commerces">Commerces</option>
+              <option value="campagnes">Campagnes</option>
+          </select>
+      </div>
+  </div>
+
+
+  <script src="./js/jquery-3.6.0.min.js"></script>
+  <script src="./js/maplibre-gl.js"></script>
+  <script src="./vendor/bootstrap/js/bootstrap.bundle.js"></script>
+	<script src="./js/togeojson.js"></script>
+  <script src="./js/URI.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="./js/admin.js"></script>
+</body>
+
+</html>

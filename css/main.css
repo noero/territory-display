@@ -1,0 +1,140 @@
+body, html, .container-fluid {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+select {
+    z-index: 1;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    padding: 5px;
+    background: white;
+}
+
+/* --------------- Dialog Styling ------------------------ */
+
+/* Styles for dialog window */
+#npv-dialog {
+    background: white;
+    padding: 20px 30px;
+    text-align: left;
+    max-width: 700px;
+    margin: 40px auto;
+    position: relative;
+		font-family: "Roboto"
+}
+
+/**
+* Fade-zoom animation for first dialog
+*/
+
+/* start state */
+.my-mfp-zoom-in .zoom-anim-dialog {
+    opacity: 0;
+
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+
+
+
+    -webkit-transform: scale(0.8);
+    -moz-transform: scale(0.8);
+    -ms-transform: scale(0.8);
+    -o-transform: scale(0.8);
+    transform: scale(0.8);
+}
+
+/* animate in */
+.my-mfp-zoom-in.mfp-ready .zoom-anim-dialog {
+    opacity: 1;
+
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+}
+
+/* animate out */
+.my-mfp-zoom-in.mfp-removing .zoom-anim-dialog {
+    -webkit-transform: scale(0.8);
+    -moz-transform: scale(0.8);
+    -ms-transform: scale(0.8);
+    -o-transform: scale(0.8);
+    transform: scale(0.8);
+
+    opacity: 0;
+}
+
+/* Dark overlay, start state */
+.my-mfp-zoom-in.mfp-bg {
+    opacity: 0;
+    -webkit-transition: opacity 0.3s ease-out;
+    -moz-transition: opacity 0.3s ease-out;
+    -o-transition: opacity 0.3s ease-out;
+    transition: opacity 0.3s ease-out;
+}
+
+/* animate in */
+.my-mfp-zoom-in.mfp-ready.mfp-bg {
+    opacity: 0.8;
+}
+
+/* animate out */
+.my-mfp-zoom-in.mfp-removing.mfp-bg {
+    opacity: 0;
+}
+
+.zoom-anim-dialog ul {
+    margin: 10px 0;
+}
+
+.zoom-anim-dialog h1 {
+	font-size: 30px;
+	font-weight: 400;
+	color: #333333;
+	line-height: 1.2;
+	letter-spacing: 1px;
+	margin: 10px 0 20px 0;
+}
+
+.zoom-anim-dialog h2 {
+	font-size: 22px;
+	font-weight: 400;
+	color: #333333;
+	line-height: 1.2;
+	margin: 30px 0 10px 0;
+}
+
+.zoom-anim-dialog h4 {
+	font-size: 18px;
+	font-weight: 400;
+	color: #333333;
+	line-height: 1.2;
+	margin: 0 0 10px 15px;
+}
+
+.zoom-anim-dialog p {
+	font-size: 18px;
+	color: #555555;
+	line-height: 1.2;
+	margin: 0 0 15px 0;
+}
+
+.zoom-anim-dialog li {
+	font-size: 16px;
+	color: #555555;
+	line-height: 1.2;
+	margin: 0 0 5px 35px;
+}

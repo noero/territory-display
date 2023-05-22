@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Territoires Strasbourg Eckbolsheim</title>
+	<link rel="icon" type="image/x-icon" href="./img/osm.png">
+	<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no,width=device-width" />
+	<link href="./css/maplibre-gl.css" rel="stylesheet" />
+	<link href="./css/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" />
+	<link href="./vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+	<link type="text/css" href="./css/magnific-popup.css" rel="stylesheet" media="screen" />
+	<link href="./css/main.css" rel="stylesheet" />
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark px-2">
+	    <div class="container-fluid">
+	        <a class="navbar-brand">Territoire</a>
+					<div class="navbar" id="navbarSupportedContent">
+						<div class="d-sm-flex input-group">
+							<a class="popup-with-zoom-anim" href="#npv-dialog" alt="">
+								<button class="btn btn-outline-warning" type="button" id="button-npv" title="Personnes à ne pas visiter">
+									<span class="fa-stack fa-lg">
+										<i class="fa fa-user fa-stack-1x"></i>
+	  								<i class="fa fa-ban fa-stack-2x text-danger"></i>
+									</span>
+								</button>
+							</a>
+						</div>
+					</div>
+	    </div>
+	</nav>
+	<div class="container-fluid">
+		<div id="map">
+			<label for="styles"></label>
+			<select id="styles" class="dropdownSelect">
+			  <option value="street" selected>OpenStreetMap</option>
+			  <option value="satellite">Vue Satellite</option>
+			  <option value="here">Here</option>
+			</select>
+		</div>
+	</div>
+
+	<div id="npv-dialog" class="zoom-anim-dialog mfp-hide">
+			<div class="text-center">
+					<h1>Personnes à ne pas visiter</h1>
+					<p class="no-npv">Il n'y en a pas.</p>
+					<div>
+						<ul class="list-npv list-unstyled">
+						</ul>
+					</div>
+			</div>
+	</div>
+
+	<script src="./js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="./js/jquery.magnific-popup.min.js"></script>
+	<script src="./js/maplibre-gl.js"></script>
+	<script src="./js/togeojson.js"></script>
+	<script src="./js/main.js"></script>
+</body>
+
+</html>
