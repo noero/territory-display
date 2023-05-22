@@ -2,7 +2,7 @@
 Un site internet permettant aux proclamateurs d'une assemblée d'accéder aux territoires de prédication.
 
 ## Installation
-Pour utiliser ce site web, copier l'ensemble des fichiers de ce répertoire et les coller dans de le dossier de votre serveur web.
+Pour utiliser ce site web, copier l'ensemble des fichiers de ce répertoire et les coller dans le dossier de votre serveur web.
 
 ### Voici l'arborescence du projet :
 ```
