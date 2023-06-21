@@ -159,7 +159,7 @@ $.get( "geoJson/PANPV.csv", function( data ) {
     }
     if (parseInt(num) === number) {
       var addresse = obj["Adresse"];
-      var date = obj["Dernière date"];
+      var date = obj["Dernière date"].replace(/\s+/g, ' ').trim();;
       if (date != '') {
         addresse += ' - '
       }
