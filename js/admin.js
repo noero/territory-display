@@ -399,14 +399,14 @@ function createPDF(t){
                 npvTxt += addresse + date + '\n';
               }
             }
-            doc.text(npvTxt, width/2 - 2 * margin, height * 4 / 6 + 1.5)
+            doc.text(npvTxt, width/2 - 2 * margin, height * 4 / 6 + 1.5);
             
-            doc.setFont("helvetica")
-            doc.setFontSize(7)
-            doc.text('Lorsque tu as fini de travailler le territoire, si tu as la version électronique, merci de la supprimer.', 6 * margin, height - 2 * margin)
+            doc.setFont("helvetica");
+            doc.setFontSize(7);
+            doc.text('Lorsque tu as fini de travailler le territoire, si tu as la version électronique, merci de la supprimer.', 6 * margin, height - 2 * margin);
     
     
-            doc.save(name + ".pdf")
+            doc.save(name + ".pdf");
           });
 
        
