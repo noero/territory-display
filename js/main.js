@@ -161,7 +161,7 @@ $.get( "geoJson/PANPV.csv", function( data ) {
       var addresse = obj["Adresse"];
       var date = obj["Dernière date"].replace(/\s+/g, ' ').trim();
       if (date != '') {
-        addresse += ' - '
+        addresse += ' - ';
       }
       $('.no-npv').html('');
       $('.list-npv').append('<li>'+ addresse + date +'</li>');
