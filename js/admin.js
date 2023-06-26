@@ -392,7 +392,7 @@ function createPDF(t){
               }
               if (parseInt(num) === parseInt(number)) {
                 let addresse = obj["Adresse"];
-                let date = obj["Dernière date"];
+                let date = obj["Date"].replace(/\s+/g, ' ').trim();
                 if (date != '') {
                   addresse += ' - ';
                 }
