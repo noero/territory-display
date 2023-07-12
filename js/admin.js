@@ -260,158 +260,154 @@ function prepareGeoJson() {
     hoveredTerId = null;
 }
 
-function createPDF(t){
-  window.jsPDF = window.jspdf.jsPDF;
-  let doc = new jsPDF({
-        orientation: "portrait",
-        unit: "cm",
-        format: [14.5, 18.5]
-    });
-  let number = t['properties']['number']  
-  let urlTerr = window.location.origin + "/?n="+ number +"&c="+ isCom + "&i=" + isInv
-  const width = 14.5;
-  const height = 18.5;
-  const margin = 0.3;
-  let zone = 'Porte à porte';
-  let name = number;
-  if (isCom) {
-    zone = 'Commerces';
-    name = 'Commerces - ' + number;
-  }
-  if (isInv) {
-    zone = 'Campagne';
-    name = 'Campagne - ' + number;
-  }
-  let comment = "Tu peux en savoir plus sur les adresses de ce territoire \nen allant sur place ou depuis des sites internets comme \nopenstreetmap.org, geoportail.gouv.fr ou";
-  let note = t['properties']['infos'];
-  let info = 'Informations :';
-  let npv = 'Personnes ne souhaitant pas être visitées :\n(adresses et dates seulement)\n';
-
-  doc.setLineWidth(.03)
-  doc.rect(0, 0, width, height);;
-
-  // Titre
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(14);
-  doc.text( "N°" + number.toString() + " - " + zone, margin, margin + 0.4);
-
-  // Légende
-  doc.setFontSize(10);
-  doc.setDrawColor("#717e96");
-  doc.setLineWidth(0.05);
-  doc.setFillColor("#4a86e8");
-  doc.rect((width - margin) - .8, margin, 0.8, 0.4, "FD");
-  doc.setFillColor("#000");
-  doc.text("Zone à travailler", (width - margin) - 3.6, margin + 0.4);
-
-  // // Image
-  let w = parseInt(width);
-  let h = parseInt((height/2 - 5*margin));
-  let dim = 720;
-  let values = {}
-  let features = [t]
-  features[0]['properties'] = {
-      "fill": "#4A86E8",
-      "fill-opacity": 0.5,
-      "stroke": "#000",
-      "stroke-width": 2,
-      "stroke-opacity": 0.6
-  }
-  values['overlay'] = JSON.stringify(features);
-
-  let urlImg = 'https://api.mapbox.com/styles/v1/romaindamiano/ckbxylhbh2gnt1hqudcjxl7a9/static/geojson(%7B%22type%22%3A%22FeatureCollection%22%2C%22features%22%3A{overlay}%7D)/auto/' + dim.toString() + 'x' + parseInt(h*dim/w).toString() + '?padding=20&access_token=pk.eyJ1Ijoicm9tYWluZGFtaWFubyIsImEiOiJja2J3bmxkcW4wMmllMzBzNXVudnVqYWo3In0.GTCn7CUNaTGQbNB7iXPu-w'
-  urlImg = URITemplate(urlImg).expand(values)
-  let img;
-  $.ajax({
-      'url': urlImg,
-      'xhrFields':{
-          'responseType': 'blob'
-      },
-    }).done(function(data) {
+async function createPDF(t){
+    window.jsPDF = window.jspdf.jsPDF;
+    let doc = new jsPDF({
+          orientation: "portrait",
+          unit: "cm",
+          format: [14.5, 18.5]
+      });
+    let number = t['properties']['number'];
+  //   let desc = t['properties']['description'];
+    let urlTerr = window.location.origin + "/?n="+ number +"&c="+ isCom + "&i=" + isInv;
+    const width = 14.5;
+    const height = 18.5;
+    const margin = 0.3;
+    let zone = 'Porte à porte';
+    let name = number;
+    if (isCom) {
+      zone = 'Commerces';
+      name = 'Commerces - ' + number;
+    }
+    if (isInv) {
+      zone = 'Campagne';
+      name = 'Campagne - ' + number;
+    }
+    let comment = "Tu peux en savoir plus sur les adresses de ce territoire \nen allant sur place ou depuis des sites internets comme \nopenstreetmap.org, geoportail.gouv.fr ou";
+    let note = t['properties']['infos'];
+    let info = 'Informations :';
+    let npv = 'Personnes ne souhaitant pas être visitées :\n(adresses et dates seulement)\n';
+  
+    doc.setLineWidth(.03);
+    doc.rect(0, 0, width, height);
+  
+    // Titre
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(14);
+    doc.text( "N°" + number.toString() + " - " + zone, margin, margin + 0.4);
+  
+    // Légende
+    doc.setFontSize(10);
+    doc.setDrawColor("#717e96");
+    doc.setLineWidth(0.05);
+    doc.setFillColor("#4a86e8");
+    doc.rect((width - margin) - .8, margin, 0.8, 0.4, "FD");
+    doc.setFillColor("#000");
+    doc.text("Zone à travailler", (width - margin) - 3.6, margin + 0.4);
+  
+    // // Image
+    let w = parseInt(width);
+    let h = parseInt((height/2 - 5*margin));
+    let dim = 720;
+    let values = {}
+    let features = [t]
+    features[0]['properties'] = {
+        "fill": "#4A86E8",
+        "fill-opacity": 0.5,
+        "stroke": "#000",
+        "stroke-width": 2,
+        "stroke-opacity": 0.6
+    }
+    values['overlay'] = JSON.stringify(features);
+  
+    let urlImg = 'https://api.mapbox.com/styles/v1/romaindamiano/ckbxylhbh2gnt1hqudcjxl7a9/static/geojson(%7B%22type%22%3A%22FeatureCollection%22%2C%22features%22%3A{overlay}%7D)/auto/' + dim.toString() + 'x' + parseInt(h*dim/w).toString() + '?padding=20&access_token=pk.eyJ1Ijoicm9tYWluZGFtaWFubyIsImEiOiJja2J3bmxkcW4wMmllMzBzNXVudnVqYWo3In0.GTCn7CUNaTGQbNB7iXPu-w'
+    urlImg = URITemplate(urlImg).expand(values)
+    let img;
+    const mapBlob = await $.ajax({
+        'url': urlImg,
+        'xhrFields':{
+            'responseType': 'blob'
+        },
+      });
       const url = window.URL || window.webkitURL;
-      img = url.createObjectURL(data);
+      img = url.createObjectURL(mapBlob);
       doc.addImage(img, margin, 2 * margin + 0.4, width - 2*margin, (height/2 - 3*margin - 0.4));
       doc.rect(margin, 2 * margin + 0.4, width - 2*margin, (height/2 - 3*margin - 0.4));
-
+  
       // Ligne pliage
       doc.setLineDash([0.2, 0.1]);
       doc.line(margin, height/2, width - margin, height/2);
-
+  
       // Comment
       var textLines = doc
-        .setFont("helvetica")
-        .setFontSize(10)
-        .splitTextToSize(comment, width * 3 / 4);
+      .setFont("helvetica")
+      .setFontSize(10)
+      .splitTextToSize(comment, width * 3 / 4);
       doc.text(textLines, 2 * margin, height/2 + 3 * margin);
       doc.setFont("helvetica", 'bold');
       doc.text("en cliquant ici -->", 2 * margin + 6.53, height/2 + 6 * margin - 0.1);
       doc.setFont("helvetica");
       doc.setFontSize(8);
-
+  
       let icon;
-      $.ajax({
-        'url': './img/osm.png',
-        'xhrFields':{
-            'responseType': 'blob'
-        },
-      }).done(function(dataIcon) {
-        const urlIcon = window.URL || window.webkitURL;
-        icon = urlIcon.createObjectURL(dataIcon);
-        doc.addImage(icon, 'PNG', width * 5/6 - 0.75, height/2 + 2 * margin, 1.5, 1.5);
-        doc.link(width * 5/6 - 0.75, height/2 + 2 * margin, 1.5, 1.5, {url: urlTerr});
+      const iconBlob = await $.ajax({
+          'url': './img/osm.png',
+          'xhrFields':{
+              'responseType': 'blob'
+          },
+        });
         
-        doc.setLineDash([0.1, 0.05]);
-        doc.line(width/2 - 4 * margin, height * 4 / 6, width/2 - 4 * margin, height - 4 * margin);
-        
-        doc.setLineDash([1, 0]);
-        var textInfo = doc
-            .setFont("helvetica", 'normal')
-            .setFontSize(10)
-            .splitTextToSize(note, width * 1 / 3);
-            
-        doc.text(info, 2 * margin, height * 4 / 6 + 0.4)        
-        doc.line(2 * margin, height * 4 / 6 + 0.5, 2 * margin + 2.1, height * 4 / 6 + 0.5)        
-        doc.text(npv, width/2 - 2 * margin, height * 4 / 6 + 0.4)
-        doc.line(width/2 - 2 * margin, height * 4 / 6 + 0.5, width - 3 * margin - 0.2, height * 4 / 6 + 0.5)
-
-        doc.setFontSize(9);
-        doc.text(textInfo, 2 * margin, height * 4 / 6 + 1.5);
-        
-        let npvTxt = '';
-        $.get( "geoJson/PANPV.csv", function( data ) {
-            let json = CSVToJSON(data);
-            for (let i = 0; i < json.length; i++){
-              let obj = json[i];
-              let num;
-              if (isCom) {
-                num = obj['Commerces'];
-              } else if (isInv) {
-                num = obj['Campagnes'];
-              } else {
-                num = obj['Territoires'];
-              }
-              if (parseInt(num) === parseInt(number)) {
-                let addresse = obj["Adresse"];
-                let date = obj["Date"].replace(/\s+/g, ' ').trim();
-                if (date != '') {
-                  addresse += ' - ';
-                }
-                npvTxt += addresse + date + '\n';
-              }
-            }
-            doc.text(npvTxt, width/2 - 2 * margin, height * 4 / 6 + 1.5);
-            
-            doc.setFont("helvetica");
-            doc.setFontSize(7);
-            doc.text('Lorsque tu as fini de travailler le territoire, si tu as la version électronique, merci de la supprimer.', 6 * margin, height - 2 * margin);
-    
-    
-            doc.save(name + ".pdf");
-          });
-
-       
-      });
+      const urlIcon = window.URL || window.webkitURL;
+      icon = urlIcon.createObjectURL(iconBlob);
+      doc.addImage(icon, 'PNG', width * 5/6 - 0.75, height/2 + 2 * margin, 1.5, 1.5);
+      doc.link(width * 5/6 - 0.75, height/2 + 2 * margin, 1.5, 1.5, {url: urlTerr});
       
-  });
-}
+      doc.setLineDash([0.1, 0.05]);
+      doc.line(width/2 - 4 * margin, height * 4 / 6, width/2 - 4 * margin, height - 4 * margin);
+      
+      doc.setLineDash([1, 0]);
+      var textInfo = doc
+          .setFont("helvetica", 'normal')
+          .setFontSize(10)
+          .splitTextToSize(note, width * 1 / 3);
+          
+      doc.text(info, 2 * margin, height * 4 / 6 + 0.4)        
+      doc.line(2 * margin, height * 4 / 6 + 0.5, 2 * margin + 2.1, height * 4 / 6 + 0.5)        
+      doc.text(npv, width/2 - 2 * margin, height * 4 / 6 + 0.4)
+      doc.line(width/2 - 2 * margin, height * 4 / 6 + 0.5, width - 3 * margin - 0.2, height * 4 / 6 + 0.5)
+  
+      doc.setFontSize(9);
+      doc.text(textInfo, 2 * margin, height * 4 / 6 + 1.5);
+      
+      let npvTxt = '';
+      const panvpData = await $.get( "geoJson/PANPV.csv");
+      let json = CSVToJSON(panvpData);
+      for (let i = 0; i < json.length; i++){
+          let obj = json[i];
+          let num;
+          if (isCom) {
+          num = obj['Commerces'];
+          } else if (isInv) {
+          num = obj['Campagnes'];
+          } else {
+          num = obj['Territoires'];
+          }
+          if (parseInt(num) === parseInt(number)) {
+          let addresse = obj["Adresse"];
+          let date = obj["Date"].replace(/\s+/g, ' ').trim();
+          if (date != '') {
+              addresse += ' - ';
+          }
+          npvTxt += addresse + date + '\n';
+          }
+      }
+      doc.text(npvTxt, width/2 - 2 * margin, height * 4 / 6 + 1.5);
+      
+      doc.setFont("helvetica");
+      doc.setFontSize(7);
+      doc.text('Lorsque tu as fini de travailler le territoire, si tu as la version électronique, merci de la supprimer.', 6 * margin, height - 2 * margin);
+  
+      doc.save(name + ".pdf");
+      console.log(number);
+  }
 
