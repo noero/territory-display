@@ -101,7 +101,7 @@ function onMapLoad() {
     }
     let t = e.features[0];
     let urlTerr =
-      window.location.origin + "/?n=" + number + "&c=" + isCom + "&i=" + isInv;
+      (window.location.href).slice(0,-11) + "/?n=" + number + "&c=" + isCom + "&i=" + isInv;
     new maplibregl.Popup()
       .setLngLat(e.lngLat)
       .setHTML(
@@ -178,7 +178,12 @@ function onMapLoad() {
 function setSearch() {
   searchField.val("");
   $("#button-search").click(function () {
-    let feat = geoJson.features[parseInt($("#search-field").val()) - 1];
+    console.log(geoJson);
+    let feat = geoJson.features.find((o, i) => {
+      if (parseInt(o.properties.number) === parseInt($("#search-field").val())) {
+        return true; // stop searching
+      }
+    });
     if (map.getLayer("territoire-found-border"))
       map.removeLayer("territoire-found-border");
     if (map.getSource("territoire-found")) map.removeSource("territoire-found");
@@ -245,6 +250,9 @@ function prepareGeoJson() {
   }).done(function (xml) {
     geoJson = toGeoJSON.kml(xml);
   });
+  for (var i = 0; i < geoJson.features.length; i++) {
+    geoJson.features[i].properties.number = parseInt(geoJson.features[i].properties.number);
+  }
   first = geoJson.features.shift();
   coords = first.geometry.coordinates;
   bounds = coords[0].reduce(function (bounds, coordinate) {
@@ -259,7 +267,10 @@ async function pdf(n) {
   if (n === 0) {
     ts = geoJson.features;
   } else {
-    ts = [geoJson.features[n - 1]];
+    ts = [geoJson.features.find((o, i) => {
+      if (parseInt(o.properties.number) === parseInt(n)) {
+        return true; // stop searching
+      }})];
   }
   for (let i in ts) {
     window.jsPDF = window.jspdf.jsPDF;
@@ -272,7 +283,7 @@ async function pdf(n) {
     let number = t["properties"]["number"];
     // let desc = t['properties']['description'];
     let urlTerr =
-      window.location.origin + "/?n=" + number + "&c=" + isCom + "&i=" + isInv;
+      (window.location.href).slice(0,-11) + "/?n=" + number + "&c=" + isCom + "&i=" + isInv;
     const width = 14.5;
     const height = 18.5;
     const margin = 0.3;
