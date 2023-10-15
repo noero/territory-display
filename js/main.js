@@ -3,7 +3,7 @@ const urlParams = new URLSearchParams(queryString);
 
 const number = JSON.parse(urlParams.get('n'));
 if (number === null){
-  window.location.replace(window.location.href + "admin");
+  window.location.replace(window.location.href + "admin.html");
 }
 const isCom = parseInt(JSON.parse(urlParams.get('c')));
 const isInv = parseInt(JSON.parse(urlParams.get('i')));
@@ -31,7 +31,12 @@ $.ajax({
   }).done(function(xml) {
     geoJson = toGeoJSON.kml(xml);
 });
-const coords = geoJson.features[parseInt(number)].geometry.coordinates;
+let g=geoJson.features.find((o, i) => {
+  if (parseInt(o.properties.number) === parseInt(number)) {
+    return true; // stop searching
+  }});
+  console.log(g);
+const coords = g.geometry.coordinates;
 
 let bounds = coords[0].reduce(function (bounds, coordinate) {
         return bounds.extend(coordinate);
@@ -78,7 +83,7 @@ map.addControl(new maplibregl.GeolocateControl({
 map.on('load', function () {
     map.addSource('territoire', {
         'type': 'geojson',
-        'data': geoJson.features[parseInt(number)]
+        'data': g
     });
     map.addLayer({
         'id': 'territoire',
@@ -94,7 +99,7 @@ map.on('load', function () {
     map.on('style.load', function () {
         map.addSource('territoire', {
             'type': 'geojson',
-            'data': geoJson.features[parseInt(number)]
+            'data': g
         });
         map.addLayer({
             'id': 'territoire',
@@ -147,6 +152,7 @@ function CSVToJSON(data, delimiter = ';') {
 
 $.get( "geoJson/PANPV.csv", function( data ) {
   let json = CSVToJSON(data);
+  console.log(json)
   for (var i = 0; i < json.length; i++){
     var obj = json[i];
     var num;
@@ -157,9 +163,9 @@ $.get( "geoJson/PANPV.csv", function( data ) {
     } else {
       num = obj['Territoires'];
     }
-    if (parseInt(num) === number) {
+    if (parseInt(num) === parseInt(number)) {
       var addresse = obj["Adresse"];
-      var date = obj["Dernière date"].replace(/\s+/g, ' ').trim();
+      var date = obj["Date"].replace(/\s+/g, ' ').trim();
       if (date != '') {
         addresse += ' - ';
       }
